@@ -2,7 +2,7 @@
   "name": "pomodoro-app",
   "version": "0.0.1",
   "description": "A pomodoro app built with electron.js and react.js",
-  "main": "src/index.js",
+  "main": "index.js",
   "keywords": [
     "reactjs",
     "electron.js"
@@ -15,9 +15,26 @@
   "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --config webpack.config.js --watch",
     "start": "electron ."
   },
   "dependencies": {
-    "electron": "^11.2.0"
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.1.4",
+    "@emotion/styled": "^11.0.0",
+    "electron": "^11.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "electron-reload": "^1.5.0",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0"
   }
 }

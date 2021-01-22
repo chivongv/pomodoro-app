@@ -84,3 +84,5 @@ typings/
 
 # Webpack
 .webpack/
+
+build/
