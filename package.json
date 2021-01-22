@@ -1,0 +1,23 @@
+{
+  "name": "pomodoro-app",
+  "version": "0.0.1",
+  "description": "A pomodoro app built with electron.js and react.js",
+  "main": "src/index.js",
+  "keywords": [
+    "reactjs",
+    "electron.js"
+  ],
+  "author": {
+    "name": "Chi Vong",
+    "email": "chivongv@gmail.com"
+  },
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^11.2.0"
+  }
+}
