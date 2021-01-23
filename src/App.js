@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { FaPlay, FaUndo, FaPause } from "react-icons/fa";
+import { FaPlay, FaUndo, FaPause, FaCog, FaTimes } from "react-icons/fa";
 
 const Container = styled.div({
   height: "100vh",
@@ -30,6 +30,9 @@ const Button = styled.button({
   borderRadius: 10,
   border: "none",
   backgroundColor: "#eee",
+  ":last-child": {
+    margin: 0,
+  },
 });
 
 const Countdown = styled.h3({
@@ -37,13 +40,51 @@ const Countdown = styled.h3({
   marginBottom: 15,
 });
 
+const Modal = styled.div({
+  width: 400,
+  height: 300,
+  zIndex: 10,
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  background: "white",
+  transform: "translate(-50%,-50%)",
+  border: "1px solid black",
+  borderRadius: 5,
+  display: "flex",
+  flexDirection: "column",
+  padding: "4rem 2rem 2rem",
+});
+
+const InputGroup = styled.div({
+  marginBottom: 5,
+  ["label"]: {
+    marginRight: "auto",
+  },
+});
+
+const Input = styled.input({
+  padding: "4px 10px",
+  width: 60,
+});
+
+const CloseModalWrapper = styled.div({
+  position: "absolute",
+  top: 8,
+  right: 8,
+});
+
 const App = () => {
-  const [sessionLength, setSessionLength] = React.useState(25);
-  const [sessionLengthInSeconds, setSessionLengthInSeconds] = React.useState(
+  const [sessionLength, setSessionLength] = useState(25);
+  const [shortBreakLength, setShortBreakLength] = React.useState(5);
+  const [longBreakLength, setLongBreakLength] = React.useState(15);
+  const [sessionAmount, setSessionAmount] = React.useState(3);
+  const [sessionLengthInSeconds, setSessionLengthInSeconds] = useState(
     sessionLength * 60
   );
-  const [isCounting, setIsCounting] = React.useState(false);
-  const [isNewSession, setIsNewSession] = React.useState(true);
+  const [isCounting, setIsCounting] = useState(false);
+  const [isNewSession, setIsNewSession] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function startCountdown() {
     if (!isCounting) {
@@ -71,6 +112,10 @@ const App = () => {
     setIsCounting(false);
     setIsNewSession(true);
     setSessionLengthInSeconds(sessionLength * 60);
+  }
+
+  function toggleSettings() {
+    setIsModalOpen((prev) => !prev);
   }
 
   React.useEffect(() => {
@@ -108,8 +153,52 @@ const App = () => {
         <Button type="button" onClick={() => reset()}>
           <FaUndo />
         </Button>
+        <Button type="button" onClick={() => toggleSettings()}>
+          <FaCog />
+        </Button>
       </ButtonsBar>
       <Countdown>{`${minutesText}:${secondsText}`}</Countdown>
+      {isModalOpen && (
+        <Modal>
+          <InputGroup>
+            <label>Session length: </label>
+            <Input
+              value={sessionLength}
+              type="number"
+              onChange={(e) => setSessionLength(e.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <label>Short break length: </label>
+            <Input
+              value={shortBreakLength}
+              type="number"
+              onChange={(e) => setShortBreakLength(e.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <label>Long break length: </label>
+            <Input
+              value={longBreakLength}
+              type="number"
+              onChange={(e) => setLongBreakLength(e.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <label>Session amount: </label>
+            <Input
+              value={sessionAmount}
+              type="number"
+              onChange={(e) => setSessionAmount(e.target.value)}
+            />
+          </InputGroup>
+          <CloseModalWrapper>
+            <Button type="button" onClick={() => toggleSettings()}>
+              <FaTimes />
+            </Button>
+          </CloseModalWrapper>
+        </Modal>
+      )}
     </Container>
   );
 };
