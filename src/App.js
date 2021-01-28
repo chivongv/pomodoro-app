@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { FaPlay, FaUndo, FaPause, FaCog, FaTimes } from "react-icons/fa";
+import GithubCorner from "react-github-corner";
 
 const Container = styled.div({
   height: "100vh",
@@ -138,22 +139,27 @@ const App = () => {
 
   return (
     <Container>
+      <GithubCorner
+        href="https://github.com/chivongv/pomodoro-app"
+        target="_blank"
+        ariaLabel="View source on Github"
+      />
       <Title>Pomodoro App</Title>
       <Tagline>Stay productive</Tagline>
       <ButtonsBar>
         {isCounting ? (
-          <Button type="button" onClick={() => pausecountdown()}>
+          <Button type="button" title="Pause" onClick={() => pausecountdown()}>
             <FaPause />
           </Button>
         ) : (
-          <Button type="button" onClick={() => startCountdown()}>
+          <Button type="button" title="Start" onClick={() => startCountdown()}>
             <FaPlay />
           </Button>
         )}
-        <Button type="button" onClick={() => reset()}>
+        <Button type="button" title="Reset" onClick={() => reset()}>
           <FaUndo />
         </Button>
-        <Button type="button" onClick={() => toggleSettings()}>
+        <Button type="button" title="Settings" onClick={() => toggleSettings()}>
           <FaCog />
         </Button>
       </ButtonsBar>
