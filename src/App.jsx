@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { FaPlay, FaUndo, FaPause, FaCog, FaFastForward } from "react-icons/fa";
-import GithubCorner from "react-github-corner";
 
 import { usePomodoro } from "./usePomodoro";
 import SettingsModal from "./SettingsModal";
@@ -54,11 +53,6 @@ const App = () => {
 
   return (
     <Container>
-      <GithubCorner
-        href="https://github.com/chivongv/pomodoro-app"
-        target="_blank"
-        ariaLabel="View source on Github"
-      />
       <Title>Pomodoro App</Title>
       <Tagline>Stay productive 🌱</Tagline>
       <ButtonsBar>
