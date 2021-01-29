@@ -22,12 +22,32 @@ const Text = styled.h3({
 const Countdown = ({ toggleNotify }) => {
   const {
     status,
+    previousStatus,
     isCounting,
     sessionNum,
     sessionAmount,
     timeLeftInSeconds,
     updateCountdown,
   } = usePomodoro();
+
+  function getHeaderTextOnSessionNum(
+    sessionNum,
+    sessionAmount,
+    status,
+    previousStatus
+  ) {
+    const temp = status === "paused" ? previousStatus : status;
+
+    if (temp === "resting") {
+      if (sessionNum % sessionAmount === 0) {
+        return "Long break";
+      } else {
+        return `Break ${sessionNum}`;
+      }
+    } else {
+      return `Session ${sessionNum}`;
+    }
+  }
 
   useEffect(() => {
     let id = null;
@@ -47,12 +67,12 @@ const Countdown = ({ toggleNotify }) => {
     };
   }, [isCounting, timeLeftInSeconds]);
 
-  const headerText =
-    status === "resting"
-      ? sessionNum % sessionAmount === 0
-        ? "Long break"
-        : `Break ${sessionNum}`
-      : `Session ${sessionNum}`;
+  const headerText = getHeaderTextOnSessionNum(
+    sessionNum,
+    sessionAmount,
+    status,
+    previousStatus
+  );
 
   let minutes = Math.floor(timeLeftInSeconds / 60);
   let seconds = timeLeftInSeconds % 60;

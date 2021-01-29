@@ -11,72 +11,89 @@ const initialState = {
   longBreakLength: 15,
   sessionAmount: 3,
   timeLeftInSeconds: 25 * 60,
+  previousStatus: "",
 };
+
+function getBreakLengthOnSessionNum(state) {
+  const {
+    sessionNum,
+    sessionAmount,
+    shortBreakLength,
+    longBreakLength,
+  } = state;
+
+  return sessionNum % sessionAmount === 0 ? longBreakLength : shortBreakLength;
+}
+
+function getNextStateOnStatus(state) {
+  const { status, previousStatus, sessionNum, sessionLength } = state;
+  const shared = {
+    ...state,
+    isCounting: true,
+    previousStatus: status,
+  };
+  // if the current status is paused, we look at the previous status instead
+  const tempStatus = status === "paused" ? previousStatus : status;
+  if (status === "paused" && previousStatus === "idle") return state;
+
+  if (tempStatus === "working") {
+    return {
+      ...shared,
+      status: "resting",
+      timeLeftInSeconds: getBreakLengthOnSessionNum(state) * 60,
+    };
+  } else if (tempStatus === "resting") {
+    return {
+      ...shared,
+      status: "working",
+      sessionNum: sessionNum + 1,
+      timeLeftInSeconds: sessionLength * 60,
+    };
+  }
+
+  return state;
+}
 
 function reducer(state, action) {
   switch (action.type) {
     case "start": {
       const shared = {
         ...state,
-        status: "working",
         isCounting: true,
       };
 
       if (state.status === "paused") {
         return {
           ...shared,
+          status: state.previousStatus,
+          previousStatus: state.status,
         };
       } else if (state.status === "idle") {
         return {
           ...shared,
-          timeLeftInSeconds: state.sessionLength * 60,
-        };
-      } else if (state.status === "resting") {
-        return {
-          ...shared,
-          sessionNum: state.sessionNum + 1,
+          status: "working",
+          previousStatus: state.status,
           timeLeftInSeconds: state.sessionLength * 60,
         };
       }
 
-      return {
-        ...shared,
-        status: "resting",
-        timeLeftInSeconds:
-          state.sessionNum % state.sessionAmount === 0
-            ? state.longBreakLength * 60
-            : state.shortBreakLength * 60,
-      };
+      return getNextStateOnStatus(shared);
     }
     case "pause": {
       return {
         ...state,
+        previousStatus: state.status,
         status: "paused",
         isCounting: false,
       };
     }
     case "skip": {
-      if (state.status === "working") {
-        return {
-          ...state,
-          status: "resting",
-          timeLeftInSeconds:
-            state.sessionNum % state.sessionAmount === 0
-              ? state.longBreakLength * 60
-              : state.shortBreakLength * 60,
-        };
+      if (state.status === "paused") {
+        if (state.previousStatus === "idle") return state;
+        return getNextStateOnStatus(state);
       }
 
-      if (state.status === "resting") {
-        return {
-          ...state,
-          status: "working",
-          sessionNum: state.sessionNum + 1,
-          timeLeftInSeconds: state.sessionLength * 60,
-        };
-      }
-
-      return state;
+      return getNextStateOnStatus(state);
     }
     case "reset":
       return initialState;
