@@ -16,13 +16,9 @@ const Container = styled.div({
   alignItems: "center",
 });
 
-const Title = styled.h1({
-  marginBottom: 5,
-  marginTop: 10,
-});
-
 const Tagline = styled.h3({
-  marginBottom: 20,
+  marginTop: 5,
+  marginBottom: 25,
   fontStyle: "italic",
 });
 
@@ -53,7 +49,6 @@ const App = () => {
 
   return (
     <Container>
-      <Title>Pomodoro App</Title>
       <Tagline>Stay productive 🌱</Tagline>
       <ButtonsBar>
         {isCounting ? (
