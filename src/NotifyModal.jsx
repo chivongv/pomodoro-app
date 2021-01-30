@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { usePomodoro } from "./src/usePomodoro";
+import { usePomodoro } from "./usePomodoro";
 
 const Container = styled.div({
   zIndex: 10,

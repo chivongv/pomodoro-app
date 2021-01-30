@@ -65,7 +65,7 @@ const Countdown = ({ toggleNotify }) => {
         clearTimeout(id);
       }
     };
-  }, [isCounting, timeLeftInSeconds]);
+  }, [isCounting, timeLeftInSeconds, toggleNotify, updateCountdown]);
 
   const headerText = getHeaderTextOnSessionNum(
     sessionNum,

@@ -1,8 +1,8 @@
 {
   "name": "pomodoro-app",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "A pomodoro app built with electron.js and react.js",
-  "main": "index.js",
+  "main": "main.js",
   "keywords": [
     "reactjs",
     "electron.js"
@@ -12,31 +12,50 @@
     "email": "chivongv@gmail.com"
   },
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --config webpack.config.js --watch",
-    "start": "electron ."
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron-react": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "dependencies": {
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
-    "electron": "^11.2.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-icons": "^4.1.0"
+    "react-icons": "^4.1.0",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/preset-react": "^7.12.10",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^5.0.1",
-    "electron-reload": "^1.5.0",
-    "eslint": "^7.18.0",
-    "eslint-plugin-react": "^7.22.0",
-    "webpack": "^5.17.0",
-    "webpack-cli": "^4.4.0"
+    "concurrently": "^5.3.0",
+    "crossenv": "^0.0.2-security",
+    "electron": "^11.2.1",
+    "electron-builder": "^22.9.1",
+    "wait-on": "^5.2.1"
   }
 }

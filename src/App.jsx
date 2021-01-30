@@ -5,7 +5,7 @@ import { FaPlay, FaUndo, FaPause, FaCog, FaFastForward } from "react-icons/fa";
 import { usePomodoro } from "./usePomodoro";
 import SettingsModal from "./SettingsModal";
 import { Button } from "./shared";
-import NotifyModal from "../NotifyModal";
+import NotifyModal from "./NotifyModal";
 import Countdown from "./Countdown";
 
 const Container = styled.div({

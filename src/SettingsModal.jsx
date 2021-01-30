@@ -23,14 +23,12 @@ const Container = styled.div({
 
 const InputGroup = styled.div({
   marginBottom: 5,
-  ["label"]: {
-    marginRight: "auto",
-  },
+  display: "grid",
+  gridTemplateColumns: "1fr auto",
 });
 
 const Input = styled.input({
   padding: "4px 10px",
-  width: 60,
 });
 
 const ButtonWrapper = styled.div({
@@ -59,7 +57,7 @@ const Modal = ({ toggleSettings }) => {
   return (
     <Container>
       <InputGroup>
-        <label>Session length: </label>
+        <label htmlFor="sessionLength">Session length: </label>
         <Input
           value={sessionLength}
           type="number"
@@ -67,25 +65,28 @@ const Modal = ({ toggleSettings }) => {
         />
       </InputGroup>
       <InputGroup>
-        <label>Short break length: </label>
+        <label htmlFor="shortBreakLength">Short break length: </label>
         <Input
           value={shortBreakLength}
+          name="shortBreakLength"
           type="number"
           onChange={(e) => setShortBreakLength(e.target.value)}
         />
       </InputGroup>
       <InputGroup>
-        <label>Long break length: </label>
+        <label htmlFor="">Long break length: </label>
         <Input
           value={longBreakLength}
+          name="longBreakLength"
           type="number"
           onChange={(e) => setLongBreakLength(e.target.value)}
         />
       </InputGroup>
       <InputGroup>
-        <label>Session amount: </label>
+        <label htmlFor="sessionAmount">Session amount: </label>
         <Input
           value={sessionAmount}
+          name="sessionAmount"
           type="number"
           onChange={(e) => setSessionAmount(e.target.value)}
         />
