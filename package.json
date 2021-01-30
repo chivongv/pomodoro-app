@@ -1,8 +1,8 @@
 {
   "name": "pomodoro-app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A pomodoro app built with electron.js and react.js",
-  "main": "main.js",
+  "main": "./public/main.js",
   "keywords": [
     "reactjs",
     "electron.js"
@@ -13,12 +13,53 @@
   },
   "license": "MIT",
   "private": true,
+  "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron-react": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "build": "npm run react-build && npm run electron-build",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "build": {
+    "productName": "Pomodoro App",
+    "appId": "org.flatpak.PomodoroApp",
+    "extraMetadata": {
+      "main": "build/main.js"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "type": "distribution"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Productivity"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +86,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "cross-env": "^7.0.3",
+    "electron-is-dev": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
@@ -53,7 +96,6 @@
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
-    "crossenv": "^0.0.2-security",
     "electron": "^11.2.1",
     "electron-builder": "^22.9.1",
     "wait-on": "^5.2.1"
