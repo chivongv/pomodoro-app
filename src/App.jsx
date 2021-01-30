@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import { FaPlay, FaUndo, FaPause, FaCog, FaFastForward } from "react-icons/fa";
 
@@ -39,13 +39,13 @@ const App = () => {
     reset,
   } = usePomodoro();
 
-  function toggleSettings() {
+  const toggleSettings = useCallback(() => {
     setIsSettingsModalOpen((prev) => !prev);
-  }
+  }, []);
 
-  function toggleNotify() {
+  const toggleNotify = useCallback(() => {
     setIsNotifyModalOpen((prev) => !prev);
-  }
+  }, []);
 
   return (
     <Container>
