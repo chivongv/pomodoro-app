@@ -2,7 +2,7 @@
   "name": "pomodoro-app",
   "version": "0.2.1",
   "description": "A pomodoro app built with electron.js and react.js",
-  "main": "./public/main.js",
+  "main": "public/electron.js",
   "keywords": [
     "reactjs",
     "electron.js"
@@ -19,21 +19,30 @@
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
-    "electron-build": "electron-builder",
-    "build": "npm run react-build && npm run electron-build",
-    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
+    "build": "yarn react-build && electron-builder build --publish never",
+    "build-all": "yarn build -mwl",
+    "build-mac": "yarn build --mac",
+    "build-linux": "yarn build --linux",
+    "build-win": "yarn build --win --x64",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "build": {
     "productName": "Pomodoro App",
     "appId": "org.flatpak.PomodoroApp",
-    "extraMetadata": {
-      "main": "build/main.js"
+    "files": [
+      "build/**/*"
+    ],
+    "directories": {
+      "app": "src",
+      "buildResources": "assets",
+      "output": "release"
     },
     "mac": {
       "target": [
         "dmg"
       ],
-      "type": "distribution"
+      "type": "distribution",
+      "category": "Productivity"
     },
     "dmg": {
       "contents": [
@@ -91,8 +100,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "react-scripts": "4.0.1"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
