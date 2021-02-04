@@ -1,9 +1,7 @@
-## Getting Started
-
-First, run the development server:
+## Usage
 
 ```bash
-yarn electron-start
+yarn start
 ```
 
 You will see a desktop app being started locally.
