@@ -26,7 +26,7 @@ const ButtonsBar = styled.div({
   marginBottom: 25,
 });
 
-const Pomodoro = () => {
+const Pomodoro: React.FC = () => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isNotifyModalOpen, setIsNotifyModalOpen] = useState(false);
   const { status, isCounting, startCountdown, pauseCountdown, skipCountdown, reset } = usePomodoro();
@@ -45,24 +45,24 @@ const Pomodoro = () => {
       <ButtonsBar>
         {isCounting ? (
           <>
-            <Button type='button' title='Pause' onClick={() => pauseCountdown()}>
+            <Button type='button' aria-label='Pause' onClick={() => pauseCountdown()}>
               <FaPause />
             </Button>
           </>
         ) : (
-          <Button type='button' title='Start' onClick={() => startCountdown()}>
+          <Button type='button' aria-label='Start' onClick={() => startCountdown()}>
             <FaPlay />
           </Button>
         )}
         {status !== 'idle' && (
-          <Button type='button' title='Skip' onClick={() => skipCountdown()}>
+          <Button type='button' aria-label='Skip' onClick={() => skipCountdown()}>
             <FaFastForward />
           </Button>
         )}
-        <Button type='button' title='Reset' onClick={() => reset()}>
+        <Button type='button' aria-label='Reset' onClick={() => reset()}>
           <FaUndo />
         </Button>
-        <Button type='button' title='Settings' onClick={() => toggleSettings()}>
+        <Button type='button' aria-label='Settings' onClick={() => toggleSettings()}>
           <FaCog />
         </Button>
       </ButtonsBar>

@@ -1,10 +1,13 @@
 import React from 'react';
 import Pomodoro from './components/Pomodoro';
+import { PomodoroProvider } from './hooks/usePomodoro';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <>
-      <Pomodoro />
+      <PomodoroProvider>
+        <Pomodoro />
+      </PomodoroProvider>
     </>
   );
 };

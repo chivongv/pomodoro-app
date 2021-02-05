@@ -56,24 +56,26 @@ const Modal: React.FC<Props> = ({ toggleSettings }) => {
 
   return (
     <Container>
-      <InputGroup>
-        <label htmlFor='sessionLength'>Session length: </label>
-        <Input value={sessionLength} type='number' onChange={e => setSessionLength(+e.target.value)} />
-      </InputGroup>
-      <InputGroup>
-        <label htmlFor='shortBreakLength'>Short break length: </label>
-        <Input value={shortBreakLength} name='shortBreakLength' type='number' onChange={e => setShortBreakLength(+e.target.value)} />
-      </InputGroup>
-      <InputGroup>
-        <label htmlFor=''>Long break length: </label>
-        <Input value={longBreakLength} name='longBreakLength' type='number' onChange={e => setLongBreakLength(+e.target.value)} />
-      </InputGroup>
-      <InputGroup>
-        <label htmlFor='sessionAmount'>Session amount: </label>
-        <Input value={sessionAmount} name='sessionAmount' type='number' onChange={e => setSessionAmount(+e.target.value)} />
-      </InputGroup>
+      <form>
+        <InputGroup>
+          <label htmlFor='sessionLength'>Session length: </label>
+          <Input value={sessionLength} id='sessionLength' type='number' onChange={e => setSessionLength(+e.target.value)} />
+        </InputGroup>
+        <InputGroup>
+          <label htmlFor='shortBreakLength'>Short break length: </label>
+          <Input value={shortBreakLength} id='shortBreakLength' type='number' onChange={e => setShortBreakLength(+e.target.value)} />
+        </InputGroup>
+        <InputGroup>
+          <label htmlFor='longBreakLength'>Long break length: </label>
+          <Input value={longBreakLength} id='longBreakLength' type='number' onChange={e => setLongBreakLength(+e.target.value)} />
+        </InputGroup>
+        <InputGroup>
+          <label htmlFor='sessionAmount'>Session amount: </label>
+          <Input value={sessionAmount} id='sessionAmount' type='number' onChange={e => setSessionAmount(+e.target.value)} />
+        </InputGroup>
+      </form>
       <ButtonWrapper>
-        <Button type='button' onClick={() => toggleSettings()}>
+        <Button type='button' aria-label='Close settings' onClick={() => toggleSettings()}>
           <FaTimes />
         </Button>
       </ButtonWrapper>
