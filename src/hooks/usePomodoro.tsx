@@ -170,9 +170,9 @@ function reducer(state: State, action: Action) {
   }
 }
 
-export const usePomodoro = () => useContext(PomodoroContext) as ContextType;
+export const usePomodoro: () => ContextType = () => useContext(PomodoroContext) as ContextType;
 
-export const PomodoroProvider = ({ children }: ProviderProps) => {
+export const PomodoroProvider = ({ children }: ProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   function startCountdown() {
