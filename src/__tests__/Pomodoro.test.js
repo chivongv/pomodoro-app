@@ -1,67 +1,79 @@
 import React from 'react';
-import { render, screen, fireEvent } from '../utils/test-utils';
+import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, waitForElementToBeRemoved } from '../utils/test-utils';
 import Pomodoro from '../components/Pomodoro';
 
-test('Should able to start, pause, skip and reset', () => {
+test('Should be able to start, pause, skip and reset', () => {
   render(<Pomodoro />);
 
   expect(screen.queryByRole('button', { name: /start/i })).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /reset/i })).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /settings/i })).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /pause/i })).not.toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /skip/i })).not.toBeInTheDocument();
   expect(screen.getByText(/session 1/i)).toBeInTheDocument();
 
-  fireEvent.click(screen.getByRole('button', { name: /start/i }));
+  userEvent.click(screen.getByRole('button', { name: /start/i }));
   expect(screen.queryByRole('button', { name: /start/i })).not.toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /pause/i })).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /skip/i })).toBeInTheDocument();
 
-  fireEvent.click(screen.queryByRole('button', { name: /pause/i }));
+  userEvent.click(screen.queryByRole('button', { name: /pause/i }));
   expect(screen.queryByRole('button', { name: /start/i })).toBeInTheDocument();
 
-  fireEvent.click(screen.getByRole('button', { name: /skip/i }));
-  expect(screen.getByText(/break/i)).toBeInTheDocument();
+  userEvent.click(screen.getByRole('button', { name: /skip/i }));
+  expect(screen.getByText(/break 1/i)).toBeInTheDocument();
 
-  fireEvent.click(screen.getByRole('button', { name: /reset/i }));
+  userEvent.click(screen.getByRole('button', { name: /reset/i }));
   expect(screen.getByText(/session/i)).toBeInTheDocument();
   expect(screen.queryByText(/break/i)).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /pause/i })).not.toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /skip/i })).not.toBeInTheDocument();
 });
 
-test('Should able to change session and breaks length', () => {
+test('Should able to change session and breaks length', async () => {
   render(<Pomodoro />);
-  const settingsButton = screen.getByRole('button', { name: /settings/i });
+  const settingsButton = await screen.findByRole('button', { name: /settings/i });
 
   expect(settingsButton).toBeInTheDocument();
   expect(screen.queryByRole('button', { name: /close settings/i })).not.toBeInTheDocument();
 
-  fireEvent.click(settingsButton);
-  const sessionLengthInput = screen.getByRole('spinbutton', { name: /session length/i });
-  const shortBreakLengthInput = screen.getByRole('spinbutton', { name: /short break length/i });
-  const longBreakLengthInput = screen.getByRole('spinbutton', { name: /long break length/i });
-  const sessionAmountInput = screen.getByRole('spinbutton', { name: /session amount/i });
-  const closeSettingsButton = screen.getByRole('button', { name: /close settings/i });
+  userEvent.click(settingsButton);
+  const sessionLengthInput = await screen.findByLabelText(/session length/i);
+  const shortBreakLengthInput = await screen.findByLabelText(/short break length/i);
+  const longBreakLengthInput = await screen.findByLabelText(/long break length/i);
+  const sessionAmountInput = await screen.findByLabelText(/session amount/i);
+  const closeSettingsButton = await screen.findByRole('button', { name: /close settings/i });
   expect(sessionLengthInput).toBeInTheDocument();
   expect(shortBreakLengthInput).toBeInTheDocument();
   expect(longBreakLengthInput).toBeInTheDocument();
   expect(sessionAmountInput).toBeInTheDocument();
   expect(closeSettingsButton).toBeInTheDocument();
 
-  fireEvent.change(sessionLengthInput, { target: { value: 10 } });
-  fireEvent.change(shortBreakLengthInput, { target: { value: 9 } });
-  fireEvent.change(longBreakLengthInput, { target: { value: 30 } });
-  fireEvent.change(sessionAmountInput, { target: { value: 2 } });
-  expect(sessionLengthInput.value).toBe('10');
-  expect(shortBreakLengthInput.value).toBe('9');
-  expect(longBreakLengthInput.value).toBe('30');
-  expect(sessionAmountInput.value).toBe('2');
+  const fakeSettings = {
+    sessionLength: '10',
+    shortBreakLength: '9',
+    longBreakLength: '30',
+    sessionAmount: '2',
+  };
 
-  fireEvent.click(closeSettingsButton);
+  fireEvent.change(sessionLengthInput, { target: { value: fakeSettings.sessionLength } });
+  fireEvent.change(shortBreakLengthInput, { target: { value: fakeSettings.shortBreakLength } });
+  fireEvent.change(longBreakLengthInput, { target: { value: fakeSettings.longBreakLength } });
+  fireEvent.change(sessionAmountInput, { target: { value: fakeSettings.sessionAmount } });
+  expect(sessionLengthInput.value).toBe(fakeSettings.sessionLength);
+  expect(shortBreakLengthInput.value).toBe(fakeSettings.shortBreakLength);
+  expect(longBreakLengthInput.value).toBe(fakeSettings.longBreakLength);
+  expect(sessionAmountInput.value).toBe(fakeSettings.sessionAmount);
+
+  userEvent.click(closeSettingsButton);
 
   expect(screen.getByText('10:00')).toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button', { name: /start/i }));
-  fireEvent.click(screen.getByRole('button', { name: /skip/i }));
+  userEvent.click(screen.getByRole('button', { name: /start/i }));
+  userEvent.click(screen.getByRole('button', { name: /skip/i }));
   expect(screen.getByText('09:00')).toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button', { name: /skip/i }));
-  fireEvent.click(screen.getByRole('button', { name: /skip/i }));
+  userEvent.click(screen.getByRole('button', { name: /skip/i }));
+  userEvent.click(screen.getByRole('button', { name: /skip/i }));
   expect(screen.getByText(/long break/i)).toBeInTheDocument();
   expect(screen.getByText('30:00')).toBeInTheDocument();
 });

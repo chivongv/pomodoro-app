@@ -42,7 +42,7 @@ type Props = {
 };
 
 // eslint-disable-next-line react/prop-types
-const Modal: React.FC<Props> = ({ toggleSettings }) => {
+const SettingsModal: React.FC<Props> = ({ toggleSettings }) => {
   const {
     sessionLength,
     shortBreakLength,
@@ -54,24 +54,44 @@ const Modal: React.FC<Props> = ({ toggleSettings }) => {
     setSessionAmount,
   } = usePomodoro();
 
+  function handleSessionLengthChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setSessionLength(Number(e.target.value));
+  }
+
+  function handleShortBreakLengthChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setShortBreakLength(Number(e.target.value));
+  }
+
+  function handleLongBreakLengthChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setLongBreakLength(Number(e.target.value));
+  }
+
+  function handleSessionAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setSessionAmount(Number(e.target.value));
+  }
+
   return (
     <Container>
       <form>
         <InputGroup>
           <label htmlFor='sessionLength'>Session length: </label>
-          <Input value={sessionLength} id='sessionLength' type='number' onChange={e => setSessionLength(+e.target.value)} />
+          <Input value={sessionLength} id='sessionLength' name='sessionLength' type='number' onChange={handleSessionLengthChange} />
         </InputGroup>
         <InputGroup>
           <label htmlFor='shortBreakLength'>Short break length: </label>
-          <Input value={shortBreakLength} id='shortBreakLength' type='number' onChange={e => setShortBreakLength(+e.target.value)} />
+          <Input value={shortBreakLength} id='shortBreakLength' type='number' onChange={handleShortBreakLengthChange} />
         </InputGroup>
         <InputGroup>
           <label htmlFor='longBreakLength'>Long break length: </label>
-          <Input value={longBreakLength} id='longBreakLength' type='number' onChange={e => setLongBreakLength(+e.target.value)} />
+          <Input value={longBreakLength} id='longBreakLength' type='number' onChange={handleLongBreakLengthChange} />
         </InputGroup>
         <InputGroup>
           <label htmlFor='sessionAmount'>Session amount: </label>
-          <Input value={sessionAmount} id='sessionAmount' type='number' onChange={e => setSessionAmount(+e.target.value)} />
+          <Input value={sessionAmount} id='sessionAmount' type='number' onChange={handleSessionAmountChange} />
         </InputGroup>
       </form>
       <ButtonWrapper>
@@ -83,4 +103,4 @@ const Modal: React.FC<Props> = ({ toggleSettings }) => {
   );
 };
 
-export default Modal;
+export default SettingsModal;
