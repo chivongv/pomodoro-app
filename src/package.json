@@ -1,6 +1,6 @@
 {
   "name": "pomodoro-app",
-  "productName": "PomodoroApp",
+  "productName": "pomodoro-app",
   "version": "0.2.5",
   "description": "A pomodoro app built with electron.js and react.js",
   "main": "./main.prod.js",

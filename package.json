@@ -41,8 +41,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "PomodoroApp",
+    "appId": "org.flatpak.PomodoroApp",
     "files": [
       "dist/",
       "node_modules/",
@@ -60,7 +60,8 @@
       "hardenedRuntime": true,
       "entitlements": "assets/entitlements.mac.plist",
       "entitlementsInherit": "assets/entitlements.mac.plist",
-      "gatekeeperAssess": false
+      "gatekeeperAssess": false,
+      "category": "Productivity"
     },
     "dmg": {
       "contents": [
@@ -85,7 +86,7 @@
       "target": [
         "AppImage"
       ],
-      "category": "Development"
+      "category": "Productivity"
     },
     "directories": {
       "app": "src",
@@ -231,7 +232,6 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
-    "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19"
   },
