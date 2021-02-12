@@ -1,0 +1,17 @@
+{
+  "name": "pomodoro-app",
+  "productName": "PomodoroApp",
+  "version": "0.2.5",
+  "description": "A pomodoro app built with electron.js and react.js",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Chi Vong",
+    "email": "chivongv@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "dependencies": {}
+}

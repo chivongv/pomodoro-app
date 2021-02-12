@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 
@@ -25,20 +26,31 @@ type Props = {
 
 // eslint-disable-next-line react/prop-types
 const Countdown: React.FC<Props> = ({ toggleNotify }) => {
-  const { status, previousStatus, isCounting, sessionNum, sessionAmount, timeLeftInSeconds, updateCountdown } = usePomodoro();
+  const {
+    status,
+    previousStatus,
+    isCounting,
+    sessionNum,
+    sessionAmount,
+    timeLeftInSeconds,
+    updateCountdown,
+  } = usePomodoro();
 
-  function getHeaderTextOnSessionNum(sessionNum: number, sessionAmount: number, status: string, previousStatus: string) {
+  function getHeaderTextOnSessionNum(
+    sessionNum: number,
+    sessionAmount: number,
+    status: string,
+    previousStatus: string
+  ) {
     const temp = status === 'paused' ? previousStatus : status;
 
     if (temp === 'resting') {
       if (sessionNum % sessionAmount === 0) {
         return 'Long break';
-      } else {
-        return `Break ${sessionNum}`;
       }
-    } else {
-      return `Session ${sessionNum}`;
+      return `Break ${sessionNum}`;
     }
+    return `Session ${sessionNum}`;
   }
 
   useEffect(() => {
@@ -59,7 +71,12 @@ const Countdown: React.FC<Props> = ({ toggleNotify }) => {
     };
   }, [isCounting, timeLeftInSeconds, toggleNotify, updateCountdown]);
 
-  const headerText = getHeaderTextOnSessionNum(sessionNum, sessionAmount, status, previousStatus);
+  const headerText = getHeaderTextOnSessionNum(
+    sessionNum,
+    sessionAmount,
+    status,
+    previousStatus
+  );
   const minutes = Math.floor(timeLeftInSeconds / 60);
   const seconds = timeLeftInSeconds % 60;
   const minutesText = `0${minutes}`.slice(-2);

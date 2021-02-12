@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { PomodoroProvider } from '../hooks/usePomodoro';
+import '@testing-library/jest-dom/extend-expect';
+import 'jest-axe/extend-expect';
 
 type Props = {
   children: React.ReactNode;

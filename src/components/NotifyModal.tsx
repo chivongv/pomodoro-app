@@ -60,7 +60,10 @@ const NotifyModal: React.FC<Props> = ({ status, toggleNotify }) => {
     return (
       <Container>
         <Header>🌱</Header>
-        <Text>Hope you got enough rest. Your break is now over. It is time to focus again.</Text>
+        <Text>
+          Hope you got enough rest. Your break is now over. It is time to focus
+          again.
+        </Text>
         <Button onClick={handleClick}>Start working</Button>
       </Container>
     );
@@ -68,9 +71,12 @@ const NotifyModal: React.FC<Props> = ({ status, toggleNotify }) => {
   return (
     <Container>
       <Header>🎉</Header>
-      <Text>Congratulations! You have successfully being focused on your work. It is time for a break.</Text>
+      <Text>
+        Congratulations! You have successfully being focused on your work. It is
+        time for a break.
+      </Text>
       <ButtonWrapper>
-        <Button type='button' onClick={handleClick}>
+        <Button type="button" onClick={handleClick}>
           Start break
         </Button>
       </ButtonWrapper>

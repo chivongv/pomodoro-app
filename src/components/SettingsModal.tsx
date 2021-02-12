@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import styled from '@emotion/styled';
@@ -59,7 +60,9 @@ const SettingsModal: React.FC<Props> = ({ toggleSettings }) => {
     setSessionLength(Number(e.target.value));
   }
 
-  function handleShortBreakLengthChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleShortBreakLengthChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
     e.preventDefault();
     setShortBreakLength(Number(e.target.value));
   }
@@ -78,24 +81,49 @@ const SettingsModal: React.FC<Props> = ({ toggleSettings }) => {
     <Container>
       <form>
         <InputGroup>
-          <label htmlFor='sessionLength'>Session length: </label>
-          <Input value={sessionLength} id='sessionLength' name='sessionLength' type='number' onChange={handleSessionLengthChange} />
+          <label htmlFor="sessionLength">Session length: </label>
+          <Input
+            value={sessionLength}
+            id="sessionLength"
+            name="sessionLength"
+            type="number"
+            onChange={handleSessionLengthChange}
+          />
         </InputGroup>
         <InputGroup>
-          <label htmlFor='shortBreakLength'>Short break length: </label>
-          <Input value={shortBreakLength} id='shortBreakLength' type='number' onChange={handleShortBreakLengthChange} />
+          <label htmlFor="shortBreakLength">Short break length: </label>
+          <Input
+            value={shortBreakLength}
+            id="shortBreakLength"
+            type="number"
+            onChange={handleShortBreakLengthChange}
+          />
         </InputGroup>
         <InputGroup>
-          <label htmlFor='longBreakLength'>Long break length: </label>
-          <Input value={longBreakLength} id='longBreakLength' type='number' onChange={handleLongBreakLengthChange} />
+          <label htmlFor="longBreakLength">Long break length: </label>
+          <Input
+            value={longBreakLength}
+            id="longBreakLength"
+            type="number"
+            onChange={handleLongBreakLengthChange}
+          />
         </InputGroup>
         <InputGroup>
-          <label htmlFor='sessionAmount'>Session amount: </label>
-          <Input value={sessionAmount} id='sessionAmount' type='number' onChange={handleSessionAmountChange} />
+          <label htmlFor="sessionAmount">Session amount: </label>
+          <Input
+            value={sessionAmount}
+            id="sessionAmount"
+            type="number"
+            onChange={handleSessionAmountChange}
+          />
         </InputGroup>
       </form>
       <ButtonWrapper>
-        <Button type='button' aria-label='Close settings' onClick={() => toggleSettings()}>
+        <Button
+          type="button"
+          aria-label="Close settings"
+          onClick={() => toggleSettings()}
+        >
           <FaTimes />
         </Button>
       </ButtonWrapper>

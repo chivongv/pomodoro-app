@@ -41,10 +41,17 @@ const initialState = {
   previousStatus: '',
 };
 
-const PomodoroContext = React.createContext<ContextType | undefined | null>(null);
+const PomodoroContext = React.createContext<ContextType | undefined | null>(
+  null
+);
 
 function getBreakLengthOnSessionNum(state: State) {
-  const { sessionNum, sessionAmount, shortBreakLength, longBreakLength } = state;
+  const {
+    sessionNum,
+    sessionAmount,
+    shortBreakLength,
+    longBreakLength,
+  } = state;
 
   return sessionNum % sessionAmount === 0 ? longBreakLength : shortBreakLength;
 }
@@ -66,7 +73,9 @@ function getNextStateOnStatus(state: State) {
       status: 'resting',
       timeLeftInSeconds: getBreakLengthOnSessionNum(state) * 60,
     };
-  } else if (tempStatus === 'resting') {
+  }
+
+  if (tempStatus === 'resting') {
     return {
       ...shared,
       status: 'working',
@@ -92,7 +101,9 @@ function reducer(state: State, action: Action) {
           status: state.previousStatus,
           previousStatus: state.status,
         };
-      } else if (state.status === 'idle') {
+      }
+
+      if (state.status === 'idle') {
         return {
           ...shared,
           status: 'working',
@@ -160,7 +171,8 @@ function reducer(state: State, action: Action) {
   }
 }
 
-export const usePomodoro: () => ContextType = () => useContext(PomodoroContext) as ContextType;
+export const usePomodoro: () => ContextType = () =>
+  useContext(PomodoroContext) as ContextType;
 
 export const PomodoroProvider = ({ children }: ProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);

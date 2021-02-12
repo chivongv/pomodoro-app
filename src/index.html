@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Pomodoro App</title>
+    <script>
+      (() => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './dist/style.css';
+        // HACK: Writing the script path should be done with webpack
+        document.getElementsByTagName('head')[0].appendChild(link);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if (typeof process === 'object') {
+        const scripts = [];
+
+        if (process.env.NODE_ENV === 'development') {
+          scripts.push('../.erb/dll/renderer.dev.dll.js');
+
+          const port = process.env.PORT || 1212;
+          scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
+        } else {
+          scripts.push('./dist/renderer.prod.js');
+        }
+
+        if (scripts.length) {
+          document.write(
+            scripts
+              .map((script) => `<script defer src="${script}"><\/script>`)
+              .join('')
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
