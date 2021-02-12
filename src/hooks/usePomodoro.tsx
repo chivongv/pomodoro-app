@@ -138,7 +138,7 @@ function reducer(state: State, action: Action) {
         timeLeftInSeconds: state.timeLeftInSeconds - 1,
       };
     case 'setSessionLength':
-      if (action.payload < 1 || state.isCounting) return state;
+      if (action.payload < 0 || state.isCounting) return state;
 
       return {
         ...state,
@@ -146,14 +146,14 @@ function reducer(state: State, action: Action) {
         timeLeftInSeconds: action.payload * 60,
       };
     case 'setShortBreakLength':
-      if (action.payload < 1 || state.isCounting) return state;
+      if (action.payload < 0 || state.isCounting) return state;
 
       return {
         ...state,
         shortBreakLength: action.payload,
       };
     case 'setLongBreakLength':
-      if (action.payload < 1 || state.isCounting) return state;
+      if (action.payload < 0 || state.isCounting) return state;
 
       return {
         ...state,
