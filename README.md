@@ -14,4 +14,4 @@ Package the app for distribution.
 
 ## Credits
 
-Ding sound by [Tim Kahn on freesound.org] (https://freesound.org/people/tim.kahn/sounds/91926/)
+Ding sound by [Tim Kahn on freesound.org](https://freesound.org/people/tim.kahn/sounds/91926/)
