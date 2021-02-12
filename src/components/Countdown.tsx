@@ -60,7 +60,6 @@ const Countdown: React.FC<Props> = ({ toggleNotify }) => {
   }, [isCounting, timeLeftInSeconds, toggleNotify, updateCountdown]);
 
   const headerText = getHeaderTextOnSessionNum(sessionNum, sessionAmount, status, previousStatus);
-
   const minutes = Math.floor(timeLeftInSeconds / 60);
   const seconds = timeLeftInSeconds % 60;
   const minutesText = `0${minutes}`.slice(-2);

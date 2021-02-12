@@ -1,16 +1,6 @@
 import React, { useContext, useReducer } from 'react';
 
-type State = {
-  status: string;
-  previousStatus: string;
-  isCounting: boolean;
-  sessionNum: number;
-  sessionLength: number;
-  shortBreakLength: number;
-  longBreakLength: number;
-  sessionAmount: number;
-  timeLeftInSeconds: number;
-};
+type State = typeof initialState;
 
 type Action =
   | { type: 'start' }
