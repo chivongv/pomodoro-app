@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { usePomodoro } from '../hooks/usePomodoro';
+import Sound from './Sound';
 
 const Container = styled.div({
   zIndex: 10,
@@ -65,6 +66,7 @@ const NotifyModal: React.FC<Props> = ({ status, toggleNotify }) => {
           again.
         </Text>
         <Button onClick={handleClick}>Start working</Button>
+        <Sound />
       </Container>
     );
 
@@ -80,6 +82,7 @@ const NotifyModal: React.FC<Props> = ({ status, toggleNotify }) => {
           Start break
         </Button>
       </ButtonWrapper>
+      <Sound />
     </Container>
   );
 };
