@@ -1,0 +1,58 @@
+app-id: org.flathub.pomodoro-app
+runtime: org.freedesktop.Platform
+runtime-version: '20.08'
+branch: stable
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: stable
+command: run.sh
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --share=network
+build-options:
+  cflags: -O2 -g
+  cxxflags: -O2 -g
+  env:
+    NPM_CONFIG_LOGLEVEL: info
+modules:
+  - name: nodejs
+    cleanup:
+      - /include
+      - /share
+      - /app/lib/node_modules/npm/changelogs
+      - /app/lib/node_modules/npm/doc
+      - /app/lib/node_modules/npm/html
+      - /app/lib/node_modules/npm/man
+      - /app/lib/node_modules/npm/scripts
+    sources:
+      - type: archive
+        url: https://nodejs.org/dist/v15.8.0/node-v15.8.0.tar.gz
+        sha256: e08c8778a6b767cd0d2ab4613946d1616c3d4054dead08b04f705d607c84510f
+  - name: pomodoro-app
+    build-options:
+      env:
+        # Need this for electron-download to find the cached electron binary
+        electron_config_cache: /run/build/pomodoro-app/npm-cache
+    buildsystem: simple
+    sources:
+      - type: archive
+        url: https://github.com/chivongv/pomodoro-app/archive/v0.3.0.tar.gz
+        sha256: 2e9d762c9d1edcc7fcbc65d1e5c70858fedf8648f4c62470567289564104f7dd
+        dest: main
+      - generated-sources.json
+      # Wrapper to launch the app
+      - type: script
+        dest-filename: run.sh
+        commands:
+          - yarn start --prefix=/app/main
+    build-commands:
+      # Install yarn dependencies
+      - yarn install --prefix=main --offline --cache=/run/build/pomodoro-app/npm-cache/
+      # Bundle app and dependencies
+      - mkdir -p /app/main /app/bin
+      - cp -ra main/* /app/main/
+      # Install app wrapper
+      - install run.sh /app/bin/
