@@ -42,7 +42,7 @@
   },
   "build": {
     "productName": "PomodoroApp",
-    "appId": "org.flatpak.PomodoroApp",
+    "appId": "se.chivongv.PomodoroApp",
     "files": [
       "dist/",
       "node_modules/",
