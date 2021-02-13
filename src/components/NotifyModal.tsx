@@ -61,7 +61,7 @@ const NotifyModal: React.FC<Props> = ({ status, toggleNotify }) => {
   if (status === 'resting')
     return (
       <Container>
-        <Header>🌱</Header>
+        <Header>📚</Header>
         <Text>
           Hope you got enough rest. Your break is now over. It is time to focus
           again.
