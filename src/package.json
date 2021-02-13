@@ -1,7 +1,7 @@
 {
   "name": "pomodoro-app",
   "productName": "pomodoro-app",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A pomodoro app built with electron.js and react.js",
   "main": "./main.prod.js",
   "author": {
