@@ -16,6 +16,7 @@ const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
   padding: '1rem',
+  maxWidth: 300,
 });
 
 const Header = styled.h1({
