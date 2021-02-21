@@ -44,6 +44,7 @@ const initialState = {
 const PomodoroContext = React.createContext<ContextType | undefined | null>(
   null
 );
+PomodoroContext.displayName = 'PomodoroContext';
 
 function getBreakLengthOnSessionNum(state: State) {
   const {
@@ -171,8 +172,15 @@ function reducer(state: State, action: Action) {
   }
 }
 
-export const usePomodoro: () => ContextType = () =>
-  useContext(PomodoroContext) as ContextType;
+export const usePomodoro: () => ContextType = () => {
+  const context = useContext(PomodoroContext) as ContextType;
+
+  if (!context) {
+    throw new Error('usePomodoro must be used within a <PomodoroProvider />');
+  }
+
+  return context;
+};
 
 export const PomodoroProvider = ({ children }: ProviderProps): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
